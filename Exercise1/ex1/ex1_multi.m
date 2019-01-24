@@ -48,9 +48,7 @@ pause;
 
 % Scale features and set them to zero mean
 fprintf('Normalizing Features ...\n');
-
 [X mu sigma] = featureNormalize(X);
-
 % Add intercept term to X
 X = [ones(m, 1) X];
 
@@ -108,7 +106,10 @@ price = 0; % You should change this
 
 
 % ============================================================
-
+par =[1650,3];
+par1 = (par -mu)./sigma;
+predict = [1,par1];
+price = predict*theta;
 fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using gradient descent):\n $%f\n'], price);
 

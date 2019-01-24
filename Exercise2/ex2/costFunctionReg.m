@@ -19,11 +19,12 @@ grad = zeros(size(theta));
 
 
 h_theta = sigmoid(X*theta);
-J = ( (1 / m) * sum(-y'*log(sigmoid(X*theta)) - (1-y)'*log( 1 - sigmoid(X*theta))) ) + (lambda/(2*m))*sum(theta(2:length(theta)).*theta(2:length(theta))) ;
-thetaZero = theta;
-thetaZero(1) = 0;
+J = (-1/m)*sum(y.*log(h_theta) + ((1-y) .*log(1-h_theta)))+ (lambda/(2*m))*sum(theta(2:length(theta)).*theta(2:length(theta))) ;
 
-grad = ((1 / m) * (h_theta - y)' * X) + lambda / m * thetaZero';
+
+grad = (1/m)*((X')*(h_theta - y)) + ((lambda / m) * theta);
+% In above equation theta(1) is penaltized. So, it's need to remove that penalty.
+grad(1,:) = grad(1,:) - ((lambda / m) * theta(1,:));
 % =============================================================
 
 end
